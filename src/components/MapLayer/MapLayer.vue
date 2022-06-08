@@ -16,7 +16,7 @@ import { useMappingAreaStore } from '@/stores/mappingArea';
 import MappingPerimeter from '@/models/mappingPerimeter';
 import View from 'ol/View';
 import Map from 'ol/Map';
-import { OSM, Vector as VectorSource } from 'ol/source';
+import { OSM, Vector as VectorSource, } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { useGeographic } from 'ol/proj';
 import Draw, {
@@ -70,12 +70,14 @@ function drawRectangle(){
     type: 'Circle',
     geometryFunction: createBox(),
   });
-  const x = map.addInteraction(draw);
-  console.log(x)
+  map.addInteraction(draw);
 
   draw.on('drawend', function (e) {
-    console.log(e.feature.getGeometry().getExtent())
-    const currentFeature = e.feature;//this is the feature fired the event
+    const coordinates = e.feature.getGeometry().getCoordinates()[0];
+    coordinates.pop();
+    mappingAreaStore.perimeter = new MappingPerimeter(
+        coordinates.map(p => [...p])
+    )
     map.removeInteraction(draw);
   });
 
