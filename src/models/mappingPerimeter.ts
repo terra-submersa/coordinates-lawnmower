@@ -1,10 +1,9 @@
-import type { LatLng } from 'leaflet';
 
 export default class MappingPerimeter {
-  readonly path: LatLng[];
+  readonly path: number[];
 
 
-  constructor(path: LatLng[]) {
+  constructor(path: number[]) {
     this.path = [...path];
   }
 
