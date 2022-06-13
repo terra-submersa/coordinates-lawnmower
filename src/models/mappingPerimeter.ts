@@ -2,7 +2,7 @@ import type { Coordinate, } from 'openlayers';
 import { distance } from '@/models/track';
 import { checkIntersection } from 'line-intersect';
 import * as _ from 'lodash';
-import { maxBy } from 'lodash';
+import type Vector from '@/models/vector';
 
 export default class MappingPerimeter {
   readonly path: Coordinate[];
@@ -26,10 +26,10 @@ export default class MappingPerimeter {
   }
 
 
-  intersectOtherSide(p: Coordinate, vx: number, vy: number): Coordinate {
-    const vLength = Math.sqrt(vx * vx + vy * vy);
-    const vnx = vx / vLength;
-    const vny = vy / vLength;
+  intersectOtherSide(p: Coordinate, v: Vector): Coordinate {
+    const vLength = Math.sqrt(v.x * v.x + v.y * v.y);
+    const vnx = v.x / vLength;
+    const vny = v.y / vLength;
     const diag = this.diagonalLength() * 1.1;
     const segmentA = [[p[0] - diag * vnx, p[1] - diag * vny], [p[0] + diag * vnx, p[1] + diag * vny]];
 
