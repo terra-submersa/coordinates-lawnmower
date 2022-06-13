@@ -12,12 +12,20 @@ cd dist
 # if you are deploying to a custom domain
  echo 'terra-submersa.github.io' > CNAME
 
-git init
-git checkout -b main
-git add -A
-git commit -m 'deploy'
-
-git push -f git@github.com:terra-submersa/coordinates-lawnmower.git main:gh-pages
+if [ ! -d .git ]
+then
+  git init
+  git remote add origin git@github.com:terra-submersa/lawnmower.git
+  git checkout -b main
+  git add -A
+  git commit -m 'deploy'
+  git push -f git@github.com:terra-submersa/lawnmower.git main:gh-pages
+else
+  git checkout gh-pages
+  git add -A
+  git commit -m 'deploy'
+  git push
+fi
 
 cd -
 
