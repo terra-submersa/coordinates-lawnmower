@@ -28,7 +28,7 @@
     </div>
   </div>
   <div>
-    <div :ref="mapViewport" class="map-viewport">
+    <div id="mapViewport" class="mapViewport map-viewport">
     </div>
   </div>
 </template>
@@ -87,10 +87,9 @@ const trajectoryLayer = new VectorLayer({
 
 let map: Map;
 onMounted(() => {
-
   map = new Map({
     layers: [raster, perimeterLayer, trajectoryLayer],
-    target: mapViewport.value,
+    target: "mapViewport",
     view: new View({
       center: [23.1319788, 37.4283254],
       zoom: 17,
