@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useMappingAreaStore } from '@/stores/mappingArea';
 import MappingPerimeter from '@/models/mappingPerimeter';
 import View from 'ol/View';
@@ -42,21 +42,19 @@ import Map from 'ol/Map';
 import { OSM, Vector as VectorSource, } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { useGeographic } from 'ol/proj';
-import { LineString, Circle } from 'ol/geom';
+import { LineString, Circle, Geometry } from 'ol/geom';
 import Draw, {
   createBox,
 } from 'ol/interaction/Draw';
 import { lawnMowerTrajectory } from '@/models/track';
 import { Feature } from 'ol';
 import { Stroke, Style, Fill } from 'ol/style';
+import type { Coordinate } from 'openlayers';
 
 const mappingAreaStore = useMappingAreaStore();
 
-mappingAreaStore.$subscribe((mutation, state) => {
-  if (mutation.events.key === 'bandWidth' || mutation.events.key === 'pointLeap') {
-    refreshTrajectory();
-  }
-});
+watch(() => mappingAreaStore.bandWidth, refreshTrajectory);
+watch(() => mappingAreaStore.pointLeap, refreshTrajectory);
 
 const mapViewport = ref('mapViewport');
 useGeographic();
@@ -106,7 +104,7 @@ function drawRectangle() {
   trajectorySource.clear();
 
   const draw = new Draw({
-    name: 'drawRectangle',
+    // name: 'drawRectangle',
     source: perimeterSource,
     type: 'Circle',
     geometryFunction: createBox(),
@@ -116,10 +114,10 @@ function drawRectangle() {
   draw.on('drawend', function (e) {
     map.removeInteraction(draw);
 
-    const coordinates = e.feature.getGeometry().getCoordinates()[0];
+    const coordinates = (e.feature.getGeometry() as any).getCoordinates()[0];
     coordinates.pop();
     const perimeter = new MappingPerimeter(
-        coordinates.map(p => [...p])
+        coordinates.map((p: Coordinate) => [...p])
     );
 
     mappingAreaStore.perimeter = perimeter;
