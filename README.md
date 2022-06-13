@@ -1,6 +1,10 @@
 # coordinates-lawnmower
 
-This template should help get you started developing with Vue 3 in Vite.
+Pickup an area on a map and output a lawn mower pattern for drone surveying.
+For shallow water photogrammetry, the usual tools do not allow tight bandwidth.
+
+Output format is to be fed on Emlid Reach.
+
 
 ## Recommended IDE Setup
 
