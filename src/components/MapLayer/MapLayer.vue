@@ -26,6 +26,7 @@
         >
       </div>
     </div>
+    <div id="mouse-position"></div>
   </div>
   <div>
     <div id="mapViewport" class="mapViewport map-viewport">
@@ -42,7 +43,7 @@ import Map from 'ol/Map';
 import { OSM, Vector as VectorSource, } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { useGeographic } from 'ol/proj';
-import { LineString, Circle, Geometry } from 'ol/geom';
+import { LineString, Circle } from 'ol/geom';
 import Draw, {
   createBox,
 } from 'ol/interaction/Draw';
@@ -50,6 +51,8 @@ import { lawnMowerTrajectory } from '@/models/track';
 import { Feature } from 'ol';
 import { Stroke, Style, Fill } from 'ol/style';
 import type { Coordinate } from 'openlayers';
+import { MousePosition, defaults as defaultControls } from 'ol/control';
+import { createStringXY } from 'ol/coordinate';
 
 const mappingAreaStore = useMappingAreaStore();
 
@@ -84,12 +87,17 @@ const trajectoryLayer = new VectorLayer({
   ]
 });
 
+const mousePositionControl = new MousePosition({
+  coordinateFormat: createStringXY(6),
+  projection: 'EPSG:3857',
+});
 
 let map: Map;
 onMounted(() => {
   map = new Map({
     layers: [raster, perimeterLayer, trajectoryLayer],
-    target: "mapViewport",
+    controls: defaultControls().extend([mousePositionControl]),
+    target: 'mapViewport',
     view: new View({
       center: [23.1319788, 37.4283254],
       zoom: 17,
