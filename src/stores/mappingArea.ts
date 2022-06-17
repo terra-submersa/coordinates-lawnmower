@@ -7,12 +7,6 @@ export const useMappingAreaStore = defineStore({
   state: () => ({
     // the mapping are perimeter
     perimeter: null as (MappingPerimeter | null),
-    // the list of points to be followed
-    trajectory: [] as Coordinate[],
-    // the maximum distance between two consecutive bands
-    bandWidth: 10,
-    // the maximum distance between two consecutive points
-    pointLeap: 5
   }),
   getters: {},
   actions: {},
