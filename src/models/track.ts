@@ -18,6 +18,11 @@ export function distance(p1: Coordinate, p2: Coordinate): number {
   return line.getLength();
 }
 
+export function pathLength(path: Coordinate[]): number{
+  const line = new LineString(path.map(toMercator));
+  return line.getLength()
+}
+
 /**
  * Build a list of evenly distributed points between p1 and p2, with a max distance
  * @param p1

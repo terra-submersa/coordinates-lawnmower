@@ -8,6 +8,10 @@ export const useMappingAreaStore = defineStore({
     // the mapping are perimeter
     perimeter: null as (MappingPerimeter | null),
   }),
-  getters: {},
+  getters: {
+    height: (state) => state.perimeter?.height() || 0,
+    width: (state) => state.perimeter?.width() || 0,
+    area: (state) => (state.perimeter?.height() || 0) * (state.perimeter?.width() || 0),
+  },
   actions: {},
 });
