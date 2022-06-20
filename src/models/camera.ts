@@ -36,29 +36,29 @@ export class Camera {
   }
 }
 
-export function loadCameraLibrary(): Camera[] {
-  return cameraLibrary.map(c => new Camera(c));
-}
-
 export const cameraLibrary = [
   {
     name: 'Go Pro Hero 8',
     viewModes: [
       {
-        name: 'Narrow 4:3 portrait',
+        name: 'Narrow 4:3 landscape',
         vertFov: 53.7,
         horizFov: 68,
       },
       {
-        name: 'Linear (zoom=1.0x) 4:3 portrait',
+        name: 'Linear (zoom=1.0x) 4:3 landscape',
         vertFov: 70,
         horizFov: 86,
       },
       {
-        name: 'Wide 4:3 portrait',
+        name: 'Wide 4:3 landscape',
         vertFov: 94.4,
         horizFov: 122.6,
       },
     ]
   }
 ];
+
+export function loadCameraLibrary(): Camera[] {
+  return cameraLibrary.map(c => new Camera(c));
+}

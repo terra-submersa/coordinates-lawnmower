@@ -1,29 +1,35 @@
 <template>
-  <div>
-    <div class="field is-grouped">
-      <div class="control">
-        <label class="label">Band width
+  <section class="section">
+    <h1>Navigation</h1>
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">
+          Point leaps
+          <span class="tooltip has-tooltip-right"
+                data-tooltip="Distance between 2 points on the GPS swimming track">(*)</span>
         </label>
-        <input
-            :value="acquisitionStore.sideShotDistance.toFixed(2)"
-            type="number"
-            min="0.5"
-            max="50"
-            class="input is-primary"
-            disabled="true"
-        >
+      </div>
+      <div class="field-body">
+        <div class="field has-addons">
+          <p class="control">
+            <input
+                v-model="trajectoryStore.pointLeap"
+                type="number"
+                min="0.5"
+                max="50"
+                class="input is-primary"
+            >
+          </p>
+          <p class="control">
+            <a class="button is-static">
+              m
+            </a>
+          </p>
 
-        <label class="label">Swimming point leap</label>
-        <input
-            v-model="trajectoryStore.pointLeap"
-            type="number"
-            min="0.5"
-            max="50"
-            class="input is-primary"
-        >
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">

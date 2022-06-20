@@ -1,16 +1,18 @@
 <template>
   <div>
-    <div class="field is-grouped">
-      <div class="control">
-        <button class="button is-primary" v-on:click="drawRectangle">Draw perimeter</button>
-      </div>
-      <TrajectoryParams/>
-    </div>
-    <div id="mouse-position"></div>
-  </div>
-  <div>
     <div id="mapViewport" class="mapViewport map-viewport">
     </div>
+  </div>
+  <div>
+    <div class="field">
+      <div class="control">
+        <button class="button is-primary is-fullwidth" v-on:click="drawRectangle">Draw perimeter</button>
+      </div>
+      <AcquisitionParams/>
+      <TrajectoryParams/>
+      <Route/>
+    </div>
+    <div id="mouse-position"></div>
   </div>
 </template>
 
@@ -32,6 +34,8 @@ import { defaults as defaultControls, MousePosition } from 'ol/control';
 import { createStringXY } from 'ol/coordinate';
 import { useTrajectoryStore } from '@/stores/mappingTrajectory';
 import TrajectoryParams from '@/components/TrajectoryParams.vue';
+import AcquisitionParams from '@/components/AcquisitionParams.vue';
+import Route from '@/components/Route.vue';
 
 const mappingAreaStore = useMappingAreaStore();
 const trajectoryStore = useTrajectoryStore();

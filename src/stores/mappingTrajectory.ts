@@ -13,7 +13,6 @@ export const useTrajectoryStore = defineStore({
     // the maximum distance between two consecutive points
     pointLeap: 5
   }),
-  getters: {},
   actions: {
     updateTrajectory() {
       const mappingAreaStore = useMappingAreaStore();
@@ -21,6 +20,7 @@ export const useTrajectoryStore = defineStore({
 
       if (mappingAreaStore.perimeter === null) {
         this.trajectory = [];
+        return;
       }
       this.trajectory = lawnMowerTrajectory(
         mappingAreaStore.perimeter!!,

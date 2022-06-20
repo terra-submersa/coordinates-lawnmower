@@ -34,7 +34,10 @@ export function dashing(p1: Coordinate, p2: Coordinate, maxDistance: number): Co
   return points;
 }
 
-export function lawnMowerTrajectory(perimeter: MappingPerimeter, maxDistanceBetweenBands: number, maxDistanceBetweenPoints: number): Coordinate[] {
+export function lawnMowerTrajectory(perimeter: MappingPerimeter,
+                                    maxDistanceBetweenBands: number,
+                                    maxDistanceBetweenPoints: number
+): Coordinate[] {
   const vBand = new Vector(perimeter.path[0], perimeter.path[3]);
   const bandStarts = dashing(perimeter.path[0], perimeter.path[1], maxDistanceBetweenBands);
   const bandEnds = bandStarts.map(s => perimeter.intersectOtherSide(s, vBand));
