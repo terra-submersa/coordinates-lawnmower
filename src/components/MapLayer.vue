@@ -1,36 +1,18 @@
 <template>
   <div>
-    <div class="field is-grouped">
-      <div class="control">
-        <button class="button is-primary" v-on:click="drawRectangle">Draw perimeter</button>
-      </div>
-      <div class="control">
-        <label class="label">Band width
-        </label>
-        <input
-            v-model="mappingAreaStore.bandWidth"
-            type="number"
-            min="0.5"
-            max="50"
-            class="input is-primary"
-        >
-      </div>
-      <div class="control">
-        <label class="label">Point leap</label>
-        <input
-            v-model="mappingAreaStore.pointLeap"
-            type="number"
-            min="0.5"
-            max="50"
-            class="input is-primary"
-        >
-      </div>
-    </div>
-    <div id="mouse-position"></div>
-  </div>
-  <div>
     <div id="mapViewport" class="mapViewport map-viewport">
     </div>
+  </div>
+  <div>
+    <div class="field">
+      <div class="control">
+        <button class="button is-primary is-fullwidth" v-on:click="drawRectangle">Draw perimeter</button>
+      </div>
+      <AcquisitionParams/>
+      <TrajectoryParams/>
+      <Route/>
+    </div>
+    <div id="mouse-position"></div>
   </div>
 </template>
 
@@ -43,21 +25,23 @@ import Map from 'ol/Map';
 import { OSM, Vector as VectorSource, } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { useGeographic } from 'ol/proj';
-import { LineString, Circle } from 'ol/geom';
-import Draw, {
-  createBox,
-} from 'ol/interaction/Draw';
-import { lawnMowerTrajectory } from '@/models/track';
+import { Circle, LineString } from 'ol/geom';
+import Draw, { createBox, } from 'ol/interaction/Draw';
 import { Feature } from 'ol';
-import { Stroke, Style, Fill } from 'ol/style';
+import { Fill, Stroke, Style } from 'ol/style';
 import type { Coordinate } from 'openlayers';
-import { MousePosition, defaults as defaultControls } from 'ol/control';
+import { defaults as defaultControls, MousePosition } from 'ol/control';
 import { createStringXY } from 'ol/coordinate';
+import { useTrajectoryStore } from '@/stores/mappingTrajectory';
+import TrajectoryParams from '@/components/TrajectoryParams.vue';
+import AcquisitionParams from '@/components/AcquisitionParams.vue';
+import Route from '@/components/Route.vue';
 
 const mappingAreaStore = useMappingAreaStore();
+const trajectoryStore = useTrajectoryStore();
 
-watch(() => mappingAreaStore.bandWidth, refreshTrajectory);
-watch(() => mappingAreaStore.pointLeap, refreshTrajectory);
+watch(() => mappingAreaStore.perimeter, () => trajectoryStore.updateTrajectory());
+watch(() => trajectoryStore.trajectory, refreshTrajectory);
 
 const mapViewport = ref('mapViewport');
 useGeographic();
@@ -135,15 +119,10 @@ function drawRectangle() {
 
 function refreshTrajectory() {
   trajectorySource.clear();
-  if (!(mappingAreaStore.bandWidth && mappingAreaStore.pointLeap && mappingAreaStore.perimeter)) {
+  const trajectory = trajectoryStore.trajectory;
+  if (!( trajectory)) {
     return;
   }
-  const trajectory = lawnMowerTrajectory(
-      mappingAreaStore.perimeter,
-      mappingAreaStore.bandWidth,
-      mappingAreaStore.pointLeap
-  );
-  mappingAreaStore.trajectory = trajectory;
 
   // add circles
   const polyline = new LineString(trajectory);

@@ -18,6 +18,11 @@ export function distance(p1: Coordinate, p2: Coordinate): number {
   return line.getLength();
 }
 
+export function pathLength(path: Coordinate[]): number{
+  const line = new LineString(path.map(toMercator));
+  return line.getLength()
+}
+
 /**
  * Build a list of evenly distributed points between p1 and p2, with a max distance
  * @param p1
@@ -34,7 +39,10 @@ export function dashing(p1: Coordinate, p2: Coordinate, maxDistance: number): Co
   return points;
 }
 
-export function lawnMowerTrajectory(perimeter: MappingPerimeter, maxDistanceBetweenBands: number, maxDistanceBetweenPoints: number): Coordinate[] {
+export function lawnMowerTrajectory(perimeter: MappingPerimeter,
+                                    maxDistanceBetweenBands: number,
+                                    maxDistanceBetweenPoints: number
+): Coordinate[] {
   const vBand = new Vector(perimeter.path[0], perimeter.path[3]);
   const bandStarts = dashing(perimeter.path[0], perimeter.path[1], maxDistanceBetweenBands);
   const bandEnds = bandStarts.map(s => perimeter.intersectOtherSide(s, vBand));
