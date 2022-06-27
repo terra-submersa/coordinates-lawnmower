@@ -1,6 +1,9 @@
 <template>
   <section class="section">
-    <h1>Navigation</h1>
+    <h1>
+      <SectionNumber i="4"/>
+      Navigation
+    </h1>
     <div class="field is-horizontal">
       <div class="field-label is-normal">
         <label class="label">
@@ -36,6 +39,7 @@
 import { watch } from 'vue';
 import { useTrajectoryStore } from '@/stores/mappingTrajectory';
 import { useAcquisitionStore } from '@/stores/acquisition';
+import SectionNumber from '@/components/SectionNumber.vue';
 
 const trajectoryStore = useTrajectoryStore();
 const acquisitionStore = useAcquisitionStore();

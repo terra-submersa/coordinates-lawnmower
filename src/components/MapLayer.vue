@@ -3,13 +3,18 @@
     <div id="mapViewport" class="mapViewport map-viewport">
     </div>
   </div>
-  <div>
-    <div class="field">
-      <div class="control">
-        <button class="button is-primary is-fullwidth" v-on:click="drawRectangle">Draw perimeter</button>
-      </div>
+  <div class="columns">
+    <div class="column">
+      <section class="section">
+        <SectionNumber i="1"/>
+        <button class="button is-primary" v-on:click="drawRectangle">
+          Draw perimeter
+        </button>
+      </section>
       <AcquisitionParams/>
       <TrajectoryParams/>
+    </div>
+    <div class="column">
       <Route/>
     </div>
     <div id="mouse-position"></div>
@@ -36,6 +41,7 @@ import { useTrajectoryStore } from '@/stores/mappingTrajectory';
 import TrajectoryParams from '@/components/TrajectoryParams.vue';
 import AcquisitionParams from '@/components/AcquisitionParams.vue';
 import Route from '@/components/Route.vue';
+import SectionNumber from '@/components/SectionNumber.vue';
 
 const mappingAreaStore = useMappingAreaStore();
 const trajectoryStore = useTrajectoryStore();
@@ -120,7 +126,7 @@ function drawRectangle() {
 function refreshTrajectory() {
   trajectorySource.clear();
   const trajectory = trajectoryStore.trajectory;
-  if (!( trajectory)) {
+  if (!(trajectory)) {
     return;
   }
 

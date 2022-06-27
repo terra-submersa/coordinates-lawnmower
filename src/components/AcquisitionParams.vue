@@ -1,8 +1,11 @@
 <template>
   <div>
-      <CameraSelection/>
+    <CameraSelection/>
     <section class="section">
-      <h1>Acquistion</h1>
+      <h1>
+        <SectionNumber i="3"/>
+        Acquistion
+      </h1>
       <div class="field is-horizontal">
         <div class="field-label is-normal">
           <label class="label">
@@ -111,7 +114,7 @@ import { watch } from 'vue';
 import { useAcquisitionStore } from '@/stores/acquisition';
 import { useTrajectoryStore } from '@/stores/mappingTrajectory';
 import CameraSelection from '@/components/CameraSelection.vue';
-
+import SectionNumber from '@/components/SectionNumber.vue';
 const acquisitionStore = useAcquisitionStore();
 const trajectoryStore = useTrajectoryStore();
 

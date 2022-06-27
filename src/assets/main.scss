@@ -38,5 +38,7 @@ $family-sans-serif: "Nunito", sans-serif;
 @import "../node_modules/bulma/sass/layout/section.sass";
 
 // Bulma Import
-//@import '~bulma';
+@import '../node_modules/bulma/css/bulma.css';
 @import '../node_modules/@creativebulma/bulma-tooltip/dist/bulma-tooltip.css';
+
+@import '@/assets/fontawesome/css/all.css'

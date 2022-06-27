@@ -1,6 +1,9 @@
 <template>
   <section class="section">
-    <h1>Camera</h1>
+    <h1>
+      <SectionNumber i="2"/>
+      Camera
+    </h1>
 
     <div class="field is-horizontal">
       <div class="field-label is-normal">
@@ -89,6 +92,7 @@
 import { useAcquisitionStore } from '@/stores/acquisition';
 import { watch } from 'vue';
 import { useTrajectoryStore } from '@/stores/mappingTrajectory';
+import SectionNumber from '@/components/SectionNumber.vue';
 
 const acquisitionStore = useAcquisitionStore();
 const trajectoryStore = useTrajectoryStore();
@@ -96,7 +100,7 @@ const trajectoryStore = useTrajectoryStore();
 watch(() => acquisitionStore.selectedViewMode, () => trajectoryStore.updateTrajectory());
 
 
-function setCamera(e) {
+function setCamera(e: any) {
   acquisitionStore.setCamera(e.target.value);
 }
 </script>
