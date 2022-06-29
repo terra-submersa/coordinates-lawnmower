@@ -33,7 +33,7 @@
         </tr>
 
         <tr>
-          <td></td>
+          <td><button class="button is-primary" v-on:click="downloadTrajectory()">Download</button></td>
           <td></td>
         </tr>
         </tbody>
@@ -49,10 +49,21 @@ import {pathLength} from "@/models/track";
 import { useAcquisitionStore } from '@/stores/acquisition';
 import { useMappingAreaStore } from '@/stores/mappingArea';
 import { useTrajectoryStore } from '@/stores/mappingTrajectory';
+import { trajectoryExport } from '@/services/trajectory-exporter';
 
 const acquisitionStore = useAcquisitionStore();
 const mappingAreaStore = useMappingAreaStore();
 const trajectoryStore = useTrajectoryStore();
 
+function downloadTrajectory() {
+  const fileContents=trajectoryExport('R ', trajectoryStore.trajectory);
+  const fileName= "route.csv";
+
+  const pp = document.createElement('a');
+  pp.setAttribute('href', 'data:application/CSV;charset=utf-8,' + encodeURIComponent(fileContents));
+  pp.setAttribute('download', fileName);
+  pp.click();
+  pp.remove();
+}
 
 </script>
