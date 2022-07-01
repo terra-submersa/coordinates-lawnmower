@@ -11,7 +11,9 @@ export const useTrajectoryStore = defineStore({
     // the list of points to be followed
     trajectory: [] as Coordinate[],
     // the maximum distance between two consecutive points
-    pointLeap: 5
+    pointLeap: 5,
+    angle: 0,
+    pointPrefix: 'P '
   }),
   getters: {
 
@@ -20,6 +22,9 @@ export const useTrajectoryStore = defineStore({
       const acquisitionStore = useAcquisitionStore();
       return pathLength(state.trajectory) / acquisitionStore.swimmingSpeed;
     },
+    routeFilename: (state) => {
+      return 'swimming_route-' + (new Date().toISOString()) + '-' + state.angle + '_deg.csv';
+    }
   },
   actions: {
     updateTrajectory() {
@@ -33,7 +38,8 @@ export const useTrajectoryStore = defineStore({
       this.trajectory = lawnMowerTrajectory(
         mappingAreaStore.perimeter!!,
         acquisitionStore.sideShotDistance,
-        this.pointLeap
+        this.pointLeap,
+        this.angle
       );
     }
   },

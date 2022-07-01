@@ -37,7 +37,7 @@ import { Fill, Stroke, Style } from 'ol/style';
 import type { Coordinate } from 'openlayers';
 import { defaults as defaultControls, MousePosition } from 'ol/control';
 import { createStringXY } from 'ol/coordinate';
-import { useTrajectoryStore } from '@/stores/mappingTrajectory';
+import { useTrajectoryStore } from '@/stores/trajectory';
 import TrajectoryParams from '@/components/TrajectoryParams.vue';
 import AcquisitionParams from '@/components/AcquisitionParams.vue';
 import Route from '@/components/Route.vue';

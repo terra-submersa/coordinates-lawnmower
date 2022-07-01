@@ -91,7 +91,7 @@
 <script setup lang="ts">
 import { useAcquisitionStore } from '@/stores/acquisition';
 import { watch } from 'vue';
-import { useTrajectoryStore } from '@/stores/mappingTrajectory';
+import { useTrajectoryStore } from '@/stores/trajectory';
 import SectionNumber from '@/components/SectionNumber.vue';
 
 const acquisitionStore = useAcquisitionStore();

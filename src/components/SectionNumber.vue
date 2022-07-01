@@ -25,7 +25,7 @@ div {
   border-width: 2px;
   border-style: solid;
   border-radius: 50%;
-  margin-right: .5rem
+  margin-right: .5rem;
 }
 
 </style>

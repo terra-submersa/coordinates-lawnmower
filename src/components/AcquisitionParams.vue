@@ -112,7 +112,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
 import { useAcquisitionStore } from '@/stores/acquisition';
-import { useTrajectoryStore } from '@/stores/mappingTrajectory';
+import { useTrajectoryStore } from '@/stores/trajectory';
 import CameraSelection from '@/components/CameraSelection.vue';
 import SectionNumber from '@/components/SectionNumber.vue';
 const acquisitionStore = useAcquisitionStore();

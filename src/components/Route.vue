@@ -48,7 +48,7 @@
 import {pathLength} from "@/models/track";
 import { useAcquisitionStore } from '@/stores/acquisition';
 import { useMappingAreaStore } from '@/stores/mappingArea';
-import { useTrajectoryStore } from '@/stores/mappingTrajectory';
+import { useTrajectoryStore } from '@/stores/trajectory';
 import { trajectoryExport } from '@/services/trajectory-exporter';
 
 const acquisitionStore = useAcquisitionStore();
@@ -56,8 +56,8 @@ const mappingAreaStore = useMappingAreaStore();
 const trajectoryStore = useTrajectoryStore();
 
 function downloadTrajectory() {
-  const fileContents=trajectoryExport('R ', trajectoryStore.trajectory);
-  const fileName= "route.csv";
+  const fileContents=trajectoryExport(trajectoryStore.pointPrefix, trajectoryStore.trajectory);
+  const fileName= trajectoryStore.routeFilename;
 
   const pp = document.createElement('a');
   pp.setAttribute('href', 'data:application/CSV;charset=utf-8,' + encodeURIComponent(fileContents));

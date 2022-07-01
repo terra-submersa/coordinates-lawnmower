@@ -40,7 +40,6 @@ export default class MappingPerimeter {
       [this.path[3], this.path[0]],
     ];
 
-
     const furthest = _.chain(segments)
       .map((seg) =>
         checkIntersection(
@@ -54,6 +53,6 @@ export default class MappingPerimeter {
       .map('point')
       .maxBy(pc => (pc.x - p[0]) * (pc.x - p[0]) + (pc.y - p[1]) * (pc.y - p[1]))
       .value();
-    return [furthest.x, furthest.y];
+    return [furthest.x, furthest.y] as Coordinate;
   }
 }
