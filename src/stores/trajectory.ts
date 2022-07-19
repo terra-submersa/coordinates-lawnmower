@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { defineStore } from 'pinia';
 import type MappingPerimeter from '@/models/mappingPerimeter';
 import type { Coordinate } from 'openlayers';
@@ -16,7 +18,6 @@ export const useTrajectoryStore = defineStore({
     pointPrefix: 'P '
   }),
   getters: {
-
     distance: (state) => pathLength(state.trajectory),
     duration: (state) => {
       const acquisitionStore = useAcquisitionStore();
@@ -24,7 +25,7 @@ export const useTrajectoryStore = defineStore({
     },
     routeFilename: (state) => {
       return 'swimming_route-' + (new Date().toISOString()) + '-' + state.angle + '_deg.csv';
-    }
+    },
   },
   actions: {
     updateTrajectory() {

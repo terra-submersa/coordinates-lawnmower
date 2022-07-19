@@ -19,7 +19,9 @@
           <li>capture the surveying area</li>
           <li>Selecting a camera, the view mode, and shot time intervals;</li>
           <li>The distance to the ground, and picture overlaps;</li>
-          <li>The distance between the reported point on the map (swimming to one to the next), the angle of the route (take two in order to limit bowing effects), and the point naming;</li>
+          <li>The distance between the reported point on the map (swimming to one to the next), the angle of the route
+            (take two in order to limit bowing effects), and the point naming;
+          </li>
         </ol>
         You will then be able to export the route and import it in an Emlid ReachView project.
       </div>
@@ -32,10 +34,15 @@
   <div class="columns">
     <div class="column">
       <section class="section">
-        <SectionNumber i="1"/>
+        <h1>
+          <SectionNumber i="1"/>
+          Perimeter
+        </h1>
         <button class="button is-primary" v-on:click="drawRectangle">
           Draw perimeter
         </button>
+
+        <PerimeterCorners/>
       </section>
       <AcquisitionParams/>
       <TrajectoryParams/>
@@ -48,8 +55,10 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        By <a href="https://www.linkedin.com/in/alexmass/">Alexandre Masselot</a>, with Terra Submersa at University of Geneva.
-        The source code is available on <a href="https://github.com/terra-submersa/coordinates-lawnmower">Github</a> and licensed
+        By <a href="https://www.linkedin.com/in/alexmass/">Alexandre Masselot</a>, with Terra Submersa at University of
+        Geneva.
+        The source code is available on <a href="https://github.com/terra-submersa/coordinates-lawnmower">Github</a> and
+        licensed
         <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
       </p>
     </div>
@@ -77,12 +86,15 @@ import TrajectoryParams from '@/components/TrajectoryParams.vue';
 import AcquisitionParams from '@/components/AcquisitionParams.vue';
 import Route from '@/components/Route.vue';
 import SectionNumber from '@/components/SectionNumber.vue';
+import PerimeterCorners from '@/components/PerimeterCorners.vue';
 
 const mappingAreaStore = useMappingAreaStore();
 const trajectoryStore = useTrajectoryStore();
 
 watch(() => mappingAreaStore.perimeter, () => trajectoryStore.updateTrajectory());
+watch(() => mappingAreaStore.perimeter, () => refreshTrajectory);
 watch(() => trajectoryStore.trajectory, refreshTrajectory);
+
 
 const mapViewport = ref('mapViewport');
 useGeographic();
@@ -153,8 +165,6 @@ function drawRectangle() {
     );
 
     mappingAreaStore.perimeter = perimeter;
-
-    refreshTrajectory();
   });
 }
 
