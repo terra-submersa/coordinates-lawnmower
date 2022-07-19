@@ -53,6 +53,9 @@ export default class MappingPerimeter {
       .map('point')
       .maxBy(pc => (pc.x - p[0]) * (pc.x - p[0]) + (pc.y - p[1]) * (pc.y - p[1]))
       .value();
+    if (!furthest) {
+      return p;
+    }
     return [furthest.x, furthest.y] as Coordinate;
   }
 }
