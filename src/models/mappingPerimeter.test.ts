@@ -72,7 +72,7 @@ describe('mappingPerimeter', () => {
       [23.1336, 37.427947],
       [23.133139, 37.427947]
     ]);
-    const p0 = [23.133139, 37.427947];
+    const p0 = [23.133139, 37.427947] as Coordinate;
     const v = new Vector(0.49999999999999994, 0.8660254037844387);
 
     const got = perimeter.intersectOtherSide(p0, v);

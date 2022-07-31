@@ -1,7 +1,4 @@
-import * as _ from 'lodash';
-
 import { defineStore } from 'pinia';
-import type MappingPerimeter from '@/models/mappingPerimeter';
 import type { Coordinate } from 'openlayers';
 import { lawnMowerTrajectory, pathLength } from '@/models/track';
 import { useMappingAreaStore } from '@/stores/mappingArea';
@@ -24,7 +21,7 @@ export const useTrajectoryStore = defineStore({
       return pathLength(state.trajectory) / acquisitionStore.swimmingSpeed;
     },
     routeFilename: (state) => {
-      return 'swimming_route-' + (new Date().toISOString()) + '-' + state.angle + '_deg.csv';
+      return 'swimming_route-' + (new Date().toISOString()) + '-' + state.angle + '_deg';
     },
   },
   actions: {

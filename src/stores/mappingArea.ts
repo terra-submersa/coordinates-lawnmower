@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import type MappingPerimeter from '@/models/mappingPerimeter';
-import type { Coordinate } from 'openlayers';
 import * as _ from 'lodash';
 
 export const useMappingAreaStore = defineStore({

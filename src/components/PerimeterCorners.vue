@@ -83,16 +83,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useMappingAreaStore } from '@/stores/mappingArea';
-import { useTrajectoryStore } from '@/stores/trajectory';
-import type { Coordinate } from 'openlayers';
 import MappingPerimeter from '@/models/mappingPerimeter';
 
-const cornerNWLat = ref(null);
-const cornerNWLong = ref(null);
-const cornerSELat = ref(null);
-const cornerSELong = ref(null);
+const cornerNWLat = ref(undefined as number|undefined);
+const cornerNWLong = ref(undefined as number|undefined);
+const cornerSELat = ref(undefined as number|undefined);
+const cornerSELong = ref(undefined as number|undefined);
 
 const mappingAreaStore = useMappingAreaStore();
 
@@ -100,7 +98,7 @@ watch(() => mappingAreaStore.perimeter, updatedPerimeter);
 
 function updatedPerimeter() {
   const cornerNW = mappingAreaStore.cornerNW;
-  cornerNWLat.value = cornerNW[1];
+  cornerNWLat.value = cornerNW[1] ;
   cornerNWLong.value = cornerNW[0];
   const cornerSE = mappingAreaStore.cornerSE;
   cornerSELat.value = cornerSE[1];

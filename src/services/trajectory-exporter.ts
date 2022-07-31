@@ -1,4 +1,6 @@
 import type { Coordinate } from 'openlayers';
+import { buildGPX, GarminBuilder } from 'gpx-builder';
+const { Point } = GarminBuilder.MODELS;
 
 export function nbDigits(len: number): number {
   return Math.floor(Math.log(len) / Math.log(10)) + 1;
@@ -9,10 +11,18 @@ export function iTag(i: number, len: number): string {
   return ('0'.repeat(nbDigits(len) - s.length)) + s;
 }
 
-export function trajectoryExport(namePrefix: string, trajectory: Coordinate[]): string {
+export function trajectoryExportEmlidCsv(namePrefix: string, trajectory: Coordinate[]): string {
   let buffer = 'name,longitude,latitude,elevation\n';
 
   const n = trajectory.length;
   trajectory.forEach((c, i) => buffer += `${namePrefix}${iTag(i, n)},${c[0]},${c[1]},0\n`);
   return buffer;
+}
+
+export function trajectoryExportGpx(namePrefix: string, trajectory: Coordinate[]): string {
+  const points = trajectory.map( c => new Point(c[0], c[1]))
+  const gpxData = new GarminBuilder();
+  gpxData.setSegmentPoints(points);
+
+  return buildGPX(gpxData.toObject()).toString()
 }

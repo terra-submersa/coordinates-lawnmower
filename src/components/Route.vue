@@ -33,7 +33,8 @@
         </tr>
 
         <tr>
-          <td><button class="button is-primary" v-on:click="downloadTrajectory()">Download</button></td>
+          <td><button class="button is-primary" v-on:click="downloadTrajectoryEmlidCsv()">Download EMLID CSV</button></td>
+          <td><button class="button is-primary" v-on:click="downloadTrajectoryGPX()">Download GPX (Garmin)</button></td>
           <td></td>
         </tr>
         </tbody>
@@ -49,18 +50,28 @@ import {pathLength} from "@/models/track";
 import { useAcquisitionStore } from '@/stores/acquisition';
 import { useMappingAreaStore } from '@/stores/mappingArea';
 import { useTrajectoryStore } from '@/stores/trajectory';
-import { trajectoryExport } from '@/services/trajectory-exporter';
+import { trajectoryExportEmlidCsv, trajectoryExportGpx } from '@/services/trajectory-exporter';
 
 const acquisitionStore = useAcquisitionStore();
 const mappingAreaStore = useMappingAreaStore();
 const trajectoryStore = useTrajectoryStore();
 
-function downloadTrajectory() {
-  const fileContents=trajectoryExport(trajectoryStore.pointPrefix, trajectoryStore.trajectory);
-  const fileName= trajectoryStore.routeFilename;
+function downloadTrajectoryEmlidCsv() {
+  const fileContents=trajectoryExportEmlidCsv(trajectoryStore.pointPrefix, trajectoryStore.trajectory);
+  const fileName= trajectoryStore.routeFilename+'.csv';
 
   const pp = document.createElement('a');
   pp.setAttribute('href', 'data:application/CSV;charset=utf-8,' + encodeURIComponent(fileContents));
+  pp.setAttribute('download', fileName);
+  pp.click();
+  pp.remove();
+}
+function downloadTrajectoryGPX() {
+  const fileContents=trajectoryExportGpx(trajectoryStore.pointPrefix, trajectoryStore.trajectory);
+  const fileName= trajectoryStore.routeFilename+'.gpx';
+
+  const pp = document.createElement('a');
+  pp.setAttribute('href', 'data:application/XML;charset=utf-8,' + encodeURIComponent(fileContents));
   pp.setAttribute('download', fileName);
   pp.click();
   pp.remove();
