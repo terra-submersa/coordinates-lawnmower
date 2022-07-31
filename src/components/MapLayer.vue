@@ -129,16 +129,35 @@ const mousePositionControl = new MousePosition({
   projection: 'EPSG:3857',
 });
 
+
+async function getDefaultView() {
+  return new Promise<View>((resolve) => {
+    if (navigator.geolocation) {
+      function getPosition(position) {
+        resolve(new View({
+          center: [position.coords.longitude, position.coords.latitude],
+          zoom: 19,
+        }));
+      }
+
+      navigator.geolocation.getCurrentPosition(getPosition);
+    } else {
+      resolve(new View({
+        center: [23.1319788, 37.4283254],
+        zoom: 19,
+      }));
+    }
+  });
+}
+
 let map: Map;
-onMounted(() => {
+onMounted(async () => {
+  const view = await getDefaultView();
   map = new Map({
     layers: [raster, perimeterLayer, trajectoryLayer],
     controls: defaultControls().extend([mousePositionControl]),
     target: 'mapViewport',
-    view: new View({
-      center: [23.1319788, 37.4283254],
-      zoom: 19,
-    }),
+    view: view,
   });
 
 });
