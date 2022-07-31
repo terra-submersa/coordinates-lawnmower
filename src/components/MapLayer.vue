@@ -137,7 +137,7 @@ onMounted(() => {
     target: 'mapViewport',
     view: new View({
       center: [23.1319788, 37.4283254],
-      zoom: 17,
+      zoom: 19,
     }),
   });
 
