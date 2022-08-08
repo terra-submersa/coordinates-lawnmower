@@ -133,7 +133,7 @@ const mousePositionControl = new MousePosition({
 async function getDefaultView() {
   return new Promise<View>((resolve) => {
     if (navigator.geolocation) {
-      function getPosition(position) {
+      function getPosition(position:any) {
         resolve(new View({
           center: [position.coords.longitude, position.coords.latitude],
           zoom: 19,
