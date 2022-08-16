@@ -28,7 +28,7 @@
         </tr>
         <tr>
           <td>Nb photos</td>
-          <td>{{Math.round(trajectoryStore.duration/acquisitionStore.shotTimeInterval) }}
+          <td>{{Math.round(trajectoryStore.duration/acquisitionStore.shotTimeInterval) + 1 }}
           </td>
         </tr>
 

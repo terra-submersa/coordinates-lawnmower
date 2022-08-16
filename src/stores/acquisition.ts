@@ -7,7 +7,7 @@ export const useAcquisitionStore = defineStore({
   state: () => ({
     cameraLibrary: cameras,
     selectedCamera: cameras[0],
-    selectedViewMode: cameras[0].viewModes[0],
+    selectedViewMode: cameras[0].viewModes[1],
     distanceToGround: 2.5,
     frontOverlapPercent: 80,
     sideOverlapPercent: 70,
