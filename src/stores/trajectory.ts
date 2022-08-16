@@ -9,8 +9,6 @@ export const useTrajectoryStore = defineStore({
   state: () => ({
     // the list of points to be followed
     trajectory: [] as Coordinate[],
-    // the maximum distance between two consecutive points
-    pointLeap: 5,
     angle: 0,
     pointPrefix: 'P '
   }),
@@ -36,7 +34,7 @@ export const useTrajectoryStore = defineStore({
       this.trajectory = lawnMowerTrajectory(
         mappingAreaStore.perimeter!!,
         acquisitionStore.sideShotDistance,
-        this.pointLeap,
+        acquisitionStore.frontShotDistance,
         this.angle
       );
     }
