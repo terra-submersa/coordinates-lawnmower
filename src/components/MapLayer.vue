@@ -19,11 +19,16 @@
           <li>capture the surveying area</li>
           <li>Selecting a camera, the view mode, and shot time intervals;</li>
           <li>The distance to the ground, and picture overlaps;</li>
-          <li>The distance between the reported point on the map (swimming to one to the next), the angle of the route
+          <li>The angle of the route
             (take two in order to limit bowing effects), and the point naming;
+          </li>
+          <li>
+            The interval between two timelaps camera shots. This information is set to give the optimal swimming speed.
           </li>
         </ol>
         You will then be able to export the route and import it in an Emlid ReachView project.
+        Each exported point correspond to a location where a picture shall be shot.
+
       </div>
     </div>
   </section>
