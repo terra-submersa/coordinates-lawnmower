@@ -28,7 +28,7 @@
     <div class="field is-horizontal">
       <div class="field-label is-normal">
         <label class="label">
-          long
+          From {{ xLab[coordsSystem] }}
         </label>
       </div>
       <div class="field-body">
@@ -46,7 +46,7 @@
     <div class="field is-horizontal">
       <div class="field-label is-normal">
         <label class="label">
-          lat
+          {{ yLab[coordsSystem] }}
         </label>
       </div>
       <div class="field-body">
@@ -64,7 +64,7 @@
     <div class="field is-horizontal">
       <div class="field-label is-normal">
         <label class="label">
-          long
+          To {{ xLab[coordsSystem] }}
         </label>
       </div>
       <div class="field-body">
@@ -82,7 +82,7 @@
     <div class="field is-horizontal">
       <div class="field-label is-normal">
         <label class="label">
-          lat
+          {{ yLab[coordsSystem] }}
         </label>
       </div>
       <div class="field-body">
@@ -120,9 +120,18 @@ const cornerSEY = ref<number>();
 
 const mappingAreaStore = useMappingAreaStore();
 
-const COORDS_UTM = 'UTM';
+const COORDS_UTM = 'COORDS_UTM';
 const COORDS_LON_LAT = 'COORDS_LON_LAT';
 const coordsSystem = ref(COORDS_LON_LAT);
+
+const xLab = {
+  COORDS_UTM: 'easting',
+  COORDS_LON_LAT: 'longitude',
+};
+const yLab = {
+  COORDS_UTM: 'northing',
+  COORDS_LON_LAT: 'latitude',
+};
 
 watch(() => mappingAreaStore.perimeter, updatedPerimeter);
 

@@ -6,6 +6,8 @@ import Vector from '@/models/vector';
 import type MappingPerimeter from '@/models/mappingPerimeter';
 import { toLonLat, transform } from 'ol/proj';
 import proj4 from 'proj4';
+import haversine from 'haversine-distance';
+
 
 const projGeographic = new Projection({code: 'EPSG:4326'});
 const projMercator900913 = new Projection({code: 'EPSG:900913'});
@@ -37,13 +39,23 @@ export function toUTMCoords(coords: Coordinate): { coords: Coordinate, zone: str
 }
 
 export function distance(p1: Coordinate, p2: Coordinate): number {
-  const line = new LineString([toMercator900913(p1), toMercator900913(p2)]);
-  return line.getLength();
+  return haversine(
+    {latitude: p1[1], longitude: p1[0]},
+    {latitude: p2[1], longitude: p2[0]},
+  );
 }
 
 export function pathLength(path: Coordinate[]): number {
-  const line = new LineString(path.map(toMercator900913));
-  return line.getLength();
+  if (path.length === 0) {
+    return 0;
+  }
+  let d = 0;
+  let dPrev = path[0];
+  for (let i = 1; i < path.length; i++) {
+    d += distance(dPrev, path[i]);
+    dPrev = path[i];
+  }
+  return d;
 }
 
 /**

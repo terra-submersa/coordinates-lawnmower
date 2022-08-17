@@ -17,14 +17,14 @@ describe('track', () => {
   it('dashing', () => {
     const got = dashing(perimeter.path[0], perimeter.path[2], 10);
 
-    assert.equal(got.length, 28);
-    assert.approximately(distance(got[5], got[6]), 9.671, 0.001);
+    assert.equal(got.length, 22);
+    assert.approximately(distance(got[5], got[6]), 9.8746, 0.001);
   });
 
   it('lawnMowerTrajectory', () => {
     const got = lawnMowerTrajectory(perimeter, 20, 10, 0);
 
-    assert.equal(got.length, 192);
+    assert.equal(got.length, 133);
   });
 
   describe('conversions', () => {
@@ -37,7 +37,7 @@ describe('track', () => {
 
 
       it('UTM 34N-1', () => {
-        const got = toLonLatCoords(utmCoords, '32634');
+        const got = toLonLatCoords(utmCoords, 'UTM:' + utmZone);
         assert.approximately(geoCoords[0], got[0], 0.0001);
         assert.approximately(geoCoords[1], got[1], 0.0001);
       });

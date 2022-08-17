@@ -16,19 +16,19 @@ describe('mappingPerimeter', () => {
   it('width', () => {
     const got = perimeter.width();
 
-    assert.approximately(got, 139.309, 0.001);
+    assert.approximately(got, 110.6291, 0.001);
   });
 
   it('height', () => {
     const got = perimeter.height();
 
-    assert.approximately(got, 220.862, 0.001);
+    assert.approximately(got,  175.391, 0.001);
   });
 
   it('diagonalLength', () => {
     const got = perimeter.diagonalLength();
 
-    assert.approximately(got, 261.127, 0.001);
+    assert.approximately(got, 207.366, 0.001);
   });
 
   it('intersectOtherSide - horizontal middle', () => {
