@@ -4,21 +4,45 @@ import { LineString, Point } from 'ol/geom';
 import type { Coordinate } from 'openlayers';
 import Vector from '@/models/vector';
 import type MappingPerimeter from '@/models/mappingPerimeter';
+import { toLonLat, transform } from 'ol/proj';
+import proj4 from 'proj4';
 
 const projGeographic = new Projection({code: 'EPSG:4326'});
-const projMercator = new Projection({code: 'EPSG:900913'});
+const projMercator900913 = new Projection({code: 'EPSG:900913'});
+proj4.defs('EPSG:32634', '+proj=utm +zone=34 +datum=WGS84 +units=m +no_defs');
+proj4.defs('EPSG:4326', '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
+_.times(60, (i) => {
+  const band = i + 1;
+  proj4.defs(`UTM:${band}N`, `+proj=utm +zone=${band} +datum=WGS84 +units=m +no_defs +crs`);
+  proj4.defs(`UTM:${band}S`, `+proj=utm +zone=${band} +south +datum=WGS84 +units=m +no_defs +crs`);
+});
 
-function toMercator(point: Coordinate) {
-  return new Point(point).transform(projGeographic, projMercator).getExtent();
+
+function toMercator900913(point: Coordinate) {
+  return new Point(point).transform(projGeographic, projMercator900913).getExtent();
+}
+
+export function toLonLatCoords(utmCoords: Coordinate, sourceEPSG: string): Coordinate {
+  return proj4('EPSG:' + sourceEPSG, 'EPSG:4326', utmCoords) as Coordinate;
+}
+
+export function toUTMCoords(coords: Coordinate): { coords: Coordinate, zone: string } {
+  const utmBand = Math.floor(((coords[0] + 180) / 6) % 60) + 1;
+  const utmZone = `${utmBand}` + ((coords[1] > 0) ? 'N' : 'S');
+
+  return {
+    coords: proj4('EPSG:4326', `UTM:${utmZone}`, coords) as Coordinate,
+    zone: utmZone
+  };
 }
 
 export function distance(p1: Coordinate, p2: Coordinate): number {
-  const line = new LineString([toMercator(p1), toMercator(p2)]);
+  const line = new LineString([toMercator900913(p1), toMercator900913(p2)]);
   return line.getLength();
 }
 
 export function pathLength(path: Coordinate[]): number {
-  const line = new LineString(path.map(toMercator));
+  const line = new LineString(path.map(toMercator900913));
   return line.getLength();
 }
 

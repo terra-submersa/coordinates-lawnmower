@@ -1,4 +1,4 @@
-import type { Coordinate, } from 'openlayers';
+import type { Coordinate } from 'openlayers';
 import { distance } from '@/models/track';
 import { checkIntersection } from 'line-intersect';
 import * as _ from 'lodash';
