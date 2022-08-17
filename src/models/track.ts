@@ -22,8 +22,8 @@ function toMercator900913(point: Coordinate) {
   return new Point(point).transform(projGeographic, projMercator900913).getExtent();
 }
 
-export function toLonLatCoords(utmCoords: Coordinate, sourceEPSG: string): Coordinate {
-  return proj4('EPSG:' + sourceEPSG, 'EPSG:4326', utmCoords) as Coordinate;
+export function toLonLatCoords(utmCoords: Coordinate, sourceRef: string): Coordinate {
+  return proj4(sourceRef, 'EPSG:4326', utmCoords) as Coordinate;
 }
 
 export function toUTMCoords(coords: Coordinate): { coords: Coordinate, zone: string } {

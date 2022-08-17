@@ -6,7 +6,7 @@
         <tbody>
         <tr>
           <td>Area</td>
-          <td>{{ mappingAreaStore.width.toFixed(0) }} x  {{ mappingAreaStore.height.toFixed(0) }} = {{ mappingAreaStore.area.toFixed(0) }} m<sup>2</sup></td>
+          <td>{{ mappingAreaStore.width.toFixed(1) }} x  {{ mappingAreaStore.height.toFixed(1) }} = {{ mappingAreaStore.area.toFixed(0) }} m<sup>2</sup></td>
         </tr>
         <tr>
           <td>Band width</td>
