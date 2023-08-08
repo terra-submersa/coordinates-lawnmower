@@ -13,7 +13,7 @@ export function iTag(i: number, len: number): string {
 }
 
 export function trajectoryExportEmlidCsv(namePrefix: string, trajectory: Coordinate[]): string {
-  let buffer = 'name,longitude,latitude,elevation\n';
+  let buffer = 'name,longitude,latitude,ellipsoidal height\n';
 
   const n = trajectory.length;
   trajectory.forEach((c, i) => buffer += `${namePrefix}${iTag(i, n)},${c[0]},${c[1]},0\n`);
